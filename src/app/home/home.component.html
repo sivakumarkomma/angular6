@@ -1,0 +1,85 @@
+﻿<mat-toolbar color="primary">
+  <span>Hi {{currentUser.username}}!</span>
+  <span class="spacer"></span>
+  Logout
+  <button mat-icon-button (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="container mat-elevation-z8">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search by Name">
+  </mat-form-field>
+  <mat-table #table [dataSource]="data" matSort class="mat-cell">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.description}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="done">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Done</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.done}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="completion_date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Completion Date</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.completionDate| date:'medium' }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="attachment_path">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Attachment Path</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.attachmentPath}}</mat-cell>
+    </ng-container>
+
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>
+        <button mat-icon-button color="primary" (click)="addNew()">
+          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        </button>
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let row; let i=index;">
+        <button mat-icon-button color="accent" (click)="downloadItem(row)">
+          <mat-icon aria-label="Download">Download</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" (click)="startEdit(row.id)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="accent" (click)="deleteItem(row.id)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+
+  <div class="no-results" [style.display]="data.length == 0 ? '' : 'none'">
+    No results
+  </div>
+</div>
+<div class="footer">
+  <span class="copyrights">&copy; Company Name 2018</span>
+  <span class="version">Sample - v1.0.0</span>
+</div>

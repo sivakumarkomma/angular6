@@ -1,0 +1,18 @@
+<div class="container">
+  <h3 mat-dialog-title>Are you sure to delete Activity?</h3>
+  <div mat-dialog-content>
+    Id: {{activity.id}}
+    <p></p>
+    Name: {{activity.name}}
+    <p></p>
+    Completion Date: {{activity.completionDate}}
+    <p></p>
+    Attachment Path: {{activity.attachmentPath}}
+    <p></p>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="confirmDelete()">Delete</button>
+    <button mat-button (click)="closeDialog()" tabindex="-1">Cancel</button>
+  </div>
+</div>

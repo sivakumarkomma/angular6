@@ -1,0 +1,55 @@
+<div class="container">
+  <h3 mat-dialog-title>Activity id: {{activity.id}}</h3>
+
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="Id" [(ngModel)]="activity.id" name="id" readonly >
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="Name" [(ngModel)]="activity.name" name="name" required >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!--Textarea for demo purposes-->
+    <div class="form">
+      <mat-form-field color="accent">
+        <textarea matInput #inputdescription class="form-control" placeholder="Description" [(ngModel)]="activity.description" maxlength="255" name="description" >
+        </textarea>
+      </mat-form-field>
+      <mat-hint align="end">{{inputdescription.value?.length || 0}}/255</mat-hint>
+    </div>
+
+    <div class="form">
+        <mat-form-field color="accent">
+          <input matInput placeholder="Done" [(ngModel)]="activity.done" name="done">
+        </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput [matDatepicker]="picker"  [(ngModel)]="activity.completionDate" name="completionDate" placeholder="Completion Date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Attachment Path" [(ngModel)]="activity.attachmentPath" name="attachmentPath">
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button [type]="submit" [disabled]="!formControl.valid" (click)="fireEvent('JS')">Event-JS</button>
+      <button mat-button [type]="submit" [disabled]="!formControl.valid" (click)="fireEvent('PY')">Event-PY</button>
+      <button mat-button [type]="submit" [disabled]="!formControl.valid" (click)="stopEdit()">Save</button>
+      <button mat-button (click)="onClose()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>
